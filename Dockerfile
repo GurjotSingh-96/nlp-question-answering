@@ -14,7 +14,7 @@ RUN pip3 install --user -U nltk
 RUN python3 -m nltk.downloader stopwords punkt
 
 # other dependencies
-RUN pip3 install word2number gitpython progressbar colorama pattern
+RUN pip3 install word2number gitpython progressbar colorama pattern google-api-python-client requests_cache sklearn websocket_client
 
 # get latest nlp-question-answering sources
 WORKDIR /home
