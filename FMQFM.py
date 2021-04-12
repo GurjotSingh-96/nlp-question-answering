@@ -322,7 +322,7 @@ class FactoidQueryParser:
                                    FactoidQueryParser.QUOTED_TEXT_QUERY,
                                    FactoidQueryParser.QUOTED_TEXT_QUERY_RANK))
 
-        return search_queries
+       # return search_queries
 
     def _process_dots(self):
         """
@@ -604,10 +604,10 @@ class FactoidQueryParser:
         self._process_past_tense()
 
         self.log("Tokenizing the query: {}{}{}{}".format(self.Q_COLOR,
-                                                         Style.BRIGHT,
-                                                         self._parsed_query_tokens,
-                                                         Style.RESET_ALL))
-
+                                                          Style.BRIGHT,
+                                                          self._parsed_query_tokens,
+                                                          Style.RESET_ALL))
+ 
     def _process_does_verb(self):
         """
             When user question contains 'does' verb, we transform verbs of the question into proper tense by adding 's'
@@ -696,7 +696,7 @@ class FMQFM(object):
         :param qpm QPM Module of FQAKG pipeline containing user question for which an answer needs to be retrieved
         """
 
-        print("")
+        #print("")
         self.log("{}MODULE 2: FACTOID MULTI-QUERY FORMULATION MODULE{}".format(Style.BRIGHT, Style.RESET_ALL))
 
         self._original_q = qpm.free_text()
@@ -715,15 +715,15 @@ class FMQFM(object):
                                                                     q[0],
                                                                     Style.RESET_ALL))
 
-    def log(self, text):
-        print("[{}] {}".format(FMQFM.__qualname__, text))
+    #def log(self, text):
+    #    print("[{}] {}".format(FMQFM.__qualname__, text))
 
-    def original_question(self):
-        return self._original_q
+    #def original_question(self):
+     #   return self._original_q
 
-    def multiquery(self):
+    #def multiquery(self):
         """
 
-        :return: list of search queries that are optimized to retreive an answer to the user question passed via QPM module
+            :return: list of search queries that are optimized to retreive an answer to the user question passed via QPM module
         """
-        return self._multiquery_list
+    #return self._multiquery_list

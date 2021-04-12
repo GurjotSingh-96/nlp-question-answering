@@ -60,7 +60,7 @@ class DSOEM(object):
         self._original_q = self._qpm.free_text()
         self._labeled_answer = self._qpm.labeled_answer()
 
-        self._data = self.encapsulate_objects(with_tags=False)
+        self._data = self.encapsulate_objects(with_tags= False)
 
         if self._qpm.question_type.value is QuestionType.SimpleFact.value and self._qpm.question_named_entities:
             self._kg_data = self.encapsulate_objects_from_kg()

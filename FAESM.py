@@ -17,7 +17,7 @@ import statistics
 import string
 
 import numpy as np
-#from config import Config
+from config import Config
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from websocket import create_connection
@@ -26,8 +26,8 @@ init() # colorama needed for Windows
 from colorama import Fore, Back, Style
 
 from qa_utils import *
-#from metrics.measure import *
-#from utils.pos_tagger import *
+from metrics.measure import *
+from utils.pos_tagger import *
 
 
 class FAESM:

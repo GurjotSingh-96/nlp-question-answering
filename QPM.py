@@ -15,6 +15,7 @@ from qa_utils import *
 from colorama import init
 init() # colorama needed for Windows
 from colorama import Fore, Back, Style
+import re
 
 class QuestionType(enum.Enum):
     Unclassified = 1
@@ -60,7 +61,7 @@ class QPM(object):
         self._collect_tags()
 
         self._query = self.get_sanitazed_sentence(self._free_text)
-        self.log("Stop-words removed: {}{}{}{}".format(QPM.Q_COLOR, Style.BRIGHT, self._query, Style.RESET_ALL))
+        #self.log("Stop-words removed: {}{}{}{}".format(QPM.Q_COLOR, Style.BRIGHT, self._query, Style.RESET_ALL))
 
         self._entities = []
         self._important_query_terms = []
@@ -72,17 +73,17 @@ class QPM(object):
         self._check_numerical_answer_expected()
 
     def log(self, text):
-        print("[{}] {}".format(QPM.__qualname__, text))
+          print("[{}] {}".format(QPM.__qualname__, text))
 
     def _collect_tags(self):
-        # get parts-of-speech and NER tags
+         #get parts-of-speech and NER tags
         self._pos_tags, self._ner_tags = self._pos_tagger.tag(self._free_text)
 
         if self._pos_tags:
             pos_str = ""
             for t in self._pos_tags:
-                pos_str = pos_str + "{}{}{}{}({}) ".format(QPM.Q_COLOR, Style.BRIGHT, t[0], Style.RESET_ALL, t[1])
-            self.log("Parts of speech: {}".format(pos_str))
+               pos_str = pos_str + "{}{}{}{}({}) ".format(QPM.Q_COLOR, Style.BRIGHT, t[0], Style.RESET_ALL, t[1])
+    #        self.log("Parts of speech: {}".format(pos_str))
 
     def pos_tags(self):
         return self._pos_tags
@@ -144,7 +145,7 @@ class QPM(object):
         # last important term
         if cur_important_term != "":
             self._important_query_terms.append(self.remove_non_alphanumeric(cur_important_term).strip().lower())
-        #print("QPM.[important query terms]: {}".format(self._important_query_terms))
+       # print("QPM.[important query terms]: {}".format(self._important_query_terms))
 
         self._entities = []
         cur_ner = ""
@@ -172,15 +173,15 @@ class QPM(object):
         if self._entities:
             ner_str = ""
             for t in self._entities:
-                ner_str = ner_str + "{}{}{}{}({}) ".format(QPM.Q_COLOR, Style.BRIGHT, t[0], Style.RESET_ALL, t[1])
-            self.log("Named entities: {}".format(ner_str))
+               ner_str = ner_str + "{}{}{}{}({}) ".format(QPM.Q_COLOR, Style.BRIGHT, t[0], Style.RESET_ALL, t[1])
+               self.log("Named entities: {}".format(ner_str))
 
         if num_verbs <= 1 and len(self._pos_tags) <= 6:
             self._question_type = QuestionType.SimpleFact
-            self.log("Question type: Simple fact")
+    #        self.log("Question type: Simple fact")
         else:
-            self._question_type = QuestionType.ComplexFact
-            self.log("Question type: Complex fact")
+           self._question_type = QuestionType.ComplexFact
+     #      self.log("Question type: Complex fact")
 
     @property
     def question_type(self):
@@ -205,10 +206,10 @@ class QPM(object):
         removelist = "'‘`’"
         pattern = re.compile(r'[^\w' + removelist + ']')
 
-        #pattern = re.compile('\W')
+        pattern = re.compile('\W')
         return re.sub(pattern, ' ', query)
 
-    def get_sanitazed_sentence(self, text):
+    def get_sanitazed_sentenceclear(self, text):
         """
         :param text:
         :return: sentence without stop words
@@ -224,7 +225,7 @@ class QPM(object):
         """
         return self._query
 
-    def free_text(self):
+    #def free_text(self):
         return self._free_text
 
     def labeled_answer(self):
@@ -261,13 +262,13 @@ class QPM(object):
                                              self._free_text.lower().startswith('how high') | \
                                              self._free_text.lower().startswith('which number') | \
                                              self._free_text.lower().startswith('how fast')
-        if self._is_numerical_answer_expected:
-            self.log("The question expects a numerical answer")
-        else:
-            self.log("The question does not expect a numerical answer")
+    #    if self._is_numerical_answer_expected:
+     #       self.log("The question expects a numerical answer")
+     #   else:
+    #        self.log("The question does not expect a numerical answer")
 
-    def is_numerical_answer_expected(self):
+    #def is_numerical_answer_expected(self):
         """
-        :return: true if a numerical question is expected for provided question, otherwise false
-        """
-        return self._is_numerical_answer_expected
+      #  :return: true if a numerical question is expected for provided question, otherwise false
+      #  """
+     #   return self._is_numerical_answer_expected
